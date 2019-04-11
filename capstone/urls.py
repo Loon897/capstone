@@ -15,7 +15,24 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
+from django.views.generic import RedirectView
+from django.conf.urls.static import static
+from django.conf import settings
+from tickets.views import home_view, landing_view, login_view, ticket_create_view, TicketByUserListView, TicketListView, TicketDetailView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_view, name='home'),
+    path('login/', login_view, name='login'),
+    path('landing/', landing_view, name='landing'),
+    path('mytickets/', TicketByUserListView.as_view(), name='my-tickets'),
+    path('tickets/', TicketListView.as_view(), name='tickets'),
+    path('tickets/<int:pk>', TicketDetailView.as_view(), name='ticket-detail'),
+    path('tickets/new/', ticket_create_view, name='create'),
+
+]
+#Add Django site authentication urls (for login, logout, password management)
+urlpatterns += [
+    path('accounts/', include('django.contrib.auth.urls')),
 ]

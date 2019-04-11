@@ -1,1 +1,7 @@
 4th_year_capstone.code-workspace
+*.pyc
+*~
+__pycache__
+db.sqlite3
+/static
+.DS_Store
